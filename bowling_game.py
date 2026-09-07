@@ -13,6 +13,8 @@ class BowlingGame:
     def roll(self, pins):
         if pins < 0:
             raise ValueError("Pins cannot be negative.")
+        if pins > 10:
+            raise ValueError("Pins cannot exceed 10.")
         self.rolls.append(pins)
         self.current_roll += 1
 
