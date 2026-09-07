@@ -34,21 +34,26 @@ class BowlingGame:
         self.current_roll += 1
 
     def score(self):
-        
         score = 0
         frame_index = 0
 
         for frame in range(10):
             if self._is_strike(frame_index):
                 # Strike
+                if frame_index + 2 >= len(self.rolls):
+                    raise ValueError("Cannot score an incomplete game.")
                 score += 10 + self._strike_bonus(frame_index)
                 frame_index += 1
             elif self._is_spare(frame_index):
                 # Spare
+                if frame_index + 2 >= len(self.rolls):
+                    raise ValueError("Cannot score an incomplete game.")
                 score += 10 + self._spare_bonus(frame_index)
                 frame_index += 2
             else:
                 # Open frame
+                if frame_index + 1 >= len(self.rolls):
+                    raise ValueError("Cannot score an incomplete game.")
                 score += self.rolls[frame_index] + self.rolls[frame_index + 1]
                 frame_index += 2
 
