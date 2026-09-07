@@ -9,12 +9,27 @@ class BowlingGame:
         # Each frame has up to 2 rolls (except the 10th frame which can have 3)
         self.rolls = []
         self.current_roll = 0
+        self.current_frame = 1
+        self.first_roll_this_frame = None
 
     def roll(self, pins):
         if pins < 0:
             raise ValueError("Pins cannot be negative.")
         if pins > 10:
             raise ValueError("Pins cannot exceed 10.")
+
+        if self.current_frame < 10:
+            if self.first_roll_this_frame is None:
+                if pins == 10:
+                    self.current_frame += 1
+                else:
+                    self.first_roll_this_frame = pins
+            else:
+                if self.first_roll_this_frame + pins > 10:
+                    raise ValueError("Frame total cannot exceed 10 pins.")
+                self.first_roll_this_frame = None
+                self.current_frame += 1
+
         self.rolls.append(pins)
         self.current_roll += 1
 
