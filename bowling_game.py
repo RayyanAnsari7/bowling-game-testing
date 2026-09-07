@@ -4,14 +4,20 @@ A module for calculating bowling game scores.
 """
 
 class BowlingGame:
+    """Keeps track of a bowling game's rolls and calculates the final score."""
+
     def __init__(self):
-        # Initialize a new game with 10 frames
-        # Each frame has up to 2 rolls (except the 10th frame which can have 3)
+        """Set up a new game with no rolls yet."""
         self.rolls = []
         self.current_frame = 1
         self.first_roll_this_frame = None
 
     def roll(self, pins):
+        """Record one roll (ball) in the game.
+
+        Checks that the number of pins is valid (0-10, and the two rolls
+        in a frame don't add up to more than 10) before saving it.
+        """
         if pins < 0:
             raise ValueError("Pins cannot be negative.")
         if pins > 10:
@@ -32,6 +38,7 @@ class BowlingGame:
         self.rolls.append(pins)
 
     def score(self):
+        """Add up the score for all 10 frames and return the total."""
         score = 0
         frame_index = 0
 
@@ -58,17 +65,17 @@ class BowlingGame:
         return score
 
     def _is_strike(self, frame_index):
-        
+        """Return True if the roll at this position knocked down all 10 pins."""
         return frame_index < len(self.rolls) and self.rolls[frame_index] == 10
 
     def _is_spare(self, frame_index):
-        
+        """Return True if the two rolls at this position add up to 10 pins."""
         return frame_index + 1 < len(self.rolls) and self.rolls[frame_index] + self.rolls[frame_index + 1] == 10
 
     def _strike_bonus(self, frame_index):
-       
+        """Return the bonus points earned after a strike (next two rolls)."""
         return self.rolls[frame_index + 1] + self.rolls[frame_index + 2]
 
     def _spare_bonus(self, frame_index):
-       
+        """Return the bonus points earned after a spare (next one roll)."""
         return self.rolls[frame_index + 2]
