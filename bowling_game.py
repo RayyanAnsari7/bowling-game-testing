@@ -8,7 +8,6 @@ class BowlingGame:
         # Initialize a new game with 10 frames
         # Each frame has up to 2 rolls (except the 10th frame which can have 3)
         self.rolls = []
-        self.current_roll = 0
         self.current_frame = 1
         self.first_roll_this_frame = None
 
@@ -31,7 +30,6 @@ class BowlingGame:
                 self.current_frame += 1
 
         self.rolls.append(pins)
-        self.current_roll += 1
 
     def score(self):
         score = 0
