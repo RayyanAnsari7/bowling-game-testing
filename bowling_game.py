@@ -11,7 +11,8 @@ class BowlingGame:
         self.current_roll = 0
 
     def roll(self, pins):
-        
+        if pins < 0:
+            raise ValueError("Pins cannot be negative.")
         self.rolls.append(pins)
         self.current_roll += 1
 
